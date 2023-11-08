@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,6 +36,30 @@ class ProductController extends AbstractController
     {
         return $this->render('product/show.html.twig', [
             'product' => $product,
+        ]);
+    }
+
+    /**
+     * @Route("/product/add", name="app_product_add")
+     * Display the form to add a new product
+     */
+    public function add(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $product = new Product();
+        $form = $this->createForm(ProductType::class, $product);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($product);
+            $entityManager->flush();
+            $this->addFlash("success", "Produit ajouté avec succès!");
+            return $this->redirectToRoute('app_product');
+        } elseif ($form->isSubmitted()) {
+            $this->addFlash("danger", "L'ajout du produit a échoué!");
+        }
+
+        return $this->renderForm("product/form.html.twig", [
+            "form" => $form
         ]);
     }
 }

@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Formulaire de création d'un comics
+{% endblock %}
+
+{% block body %}
+
+	<div class="my-2 col-10 mx-auto">
+
+		{% if app.request.attributes.get("_route") is same as "app_admin_comics_add" %}
+
+			<h2 class="my-4 text-center mx-auto">Ajouter un nouveau comcis</h2>
+
+		{% else %}
+
+			<h2 class="my-4 text-center mx-auto">Modifier un comics existant</h2>
+
+		{% endif %}
+
+		{{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+		{{ form_row(form.produit) }}
+		{{ form_row(form.categorie) }}
+        {{ form_row(form.marque) }}
+		{{ form_row(form.fournisseur) }}
+		{{ form_row(form.conditionnement) }}
+        {{ form_row(form.pahtunit) }}
+        {{ form_row(form.pahtkg) }}
+        {{ form_row(form.pattcunit) }}
+        {{ form_row(form.pattckg) }}
+        {{ form_row(form.grammes) }}
+
+
+		<button class="my-2 btn btn-primary" type="submit">Valider</button>
+
+		{{ form_end(form) }}
+
+	</div>
+
+{% endblock %}
+

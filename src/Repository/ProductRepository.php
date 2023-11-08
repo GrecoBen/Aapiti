@@ -39,6 +39,20 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @param string|null string to find in product
+     * @return Product[] Returns an array of Product objects
+     */
+    public function findAllOrderByTitleSearch(?string $search = null): array
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.produit', 'ASC')
+            ->where('p.produit LIKE :search')
+            ->setParameter('search', '%' . $search . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */
