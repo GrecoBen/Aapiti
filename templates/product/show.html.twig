@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="main-box clearfix">
+					<div class="table-responsive">
+						<table class="table user-list">
+							<h1 class="text-center py-4">{{product.produit}}</h1>
+
+							<table class="table">
+								<tbody>
+									<tr>
+										<th>Produit</th>
+										<td>{{ product.produit }}</td>
+									</tr>
+									<tr>
+										<th>Catégorie</th>
+										<td>{{ product.categorie }}</td>
+									</tr>
+									<tr>
+										<th>Marque</th>
+										<td>{{ product.marque }}</td>
+									</tr>
+									<tr>
+										<th>Fournisseur</th>
+										<td>{{ product.fournisseur }}</td>
+									</tr>
+									<tr>
+										<th>Conditionnement</th>
+										<td>{{ product.conditionnement }}</td>
+									</tr>
+                                    <tr>
+										<th>PA HT Unit</th>
+										<td>{{ product.pahtunit }}</td>
+									</tr>
+                                    <tr>
+										<th>PA HT Kg</th>
+										<td>{{ product.pahtkg }}</td>
+									</tr>
+                                    <tr>
+										<th>PA TTC Unit</th>
+										<td>{{ product.pattcunit }}</td>
+									</tr>
+                                    <tr>
+										<th>PA TTC Kg</th>
+										<td>{{ product.pattckg }}</td>
+									</tr>
+                                    <tr>
+										<th>Grammes</th>
+										<td>{{ product.grammes }}</td>
+									</tr>
+								</tbody>
+							</table>
+
+							<div class="d-flex justify-content-between align-items-center">
+								<a href="{{ path('app_product') }}" class="badge bg-success fs-6 my-4 mx-2 text-decoration-none">Retour à la liste des comics</a>
+
+								{# <a href="{{ path('app_admin_comics_edit', {'id': comics.id}) }}" class="badge bg-info fs-6 my-4 mx-2 text-decoration-none">Éditer le comics</a> #}
+
+								{# {{ include('admin/comics/_delete_form.html.twig') }} #}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endblock %}
+
