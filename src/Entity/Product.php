@@ -43,22 +43,22 @@ class Product
     private $conditionnement;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", precision=10, scale=2)
      */
     private $pahtunit;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", precision=10, scale=2)
      */
     private $pahtkg;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", precision=10, scale=2)
      */
     private $pattcunit;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", precision=10, scale=2)
      */
     private $pattckg;
 
@@ -101,7 +101,7 @@ class Product
         return $this->marque;
     }
 
-    public function setMarque(?string $marque): self
+    public function setMarque(string $marque): self
     {
         $this->marque = $marque;
 
@@ -113,7 +113,7 @@ class Product
         return $this->fournisseur;
     }
 
-    public function setFournisseur(?string $fournisseur): self
+    public function setFournisseur(string $fournisseur): self
     {
         $this->fournisseur = $fournisseur;
 
@@ -132,48 +132,48 @@ class Product
         return $this;
     }
 
-    public function getPahtunit(): ?int
+    public function getPahtunit(): ?string
     {
         return $this->pahtunit;
     }
 
-    public function setPahtunit(int $pahtunit): self
+    public function setPahtunit(string $pahtunit): self
     {
         $this->pahtunit = $pahtunit;
 
         return $this;
     }
 
-    public function getPahtkg(): ?int
+    public function getPahtkg(): ?string
     {
         return $this->pahtkg;
     }
 
-    public function setPahtkg(int $pahtkg): self
+    public function setPahtkg(string $pahtkg): self
     {
         $this->pahtkg = $pahtkg;
 
         return $this;
     }
 
-    public function getPattcunit(): ?int
+    public function getPattcunit(): ?string
     {
         return $this->pattcunit;
     }
 
-    public function setPattcunit(int $pattcunit): self
+    public function setPattcunit(string $pattcunit): self
     {
         $this->pattcunit = $pattcunit;
 
         return $this;
     }
 
-    public function getPattckg(): ?int
+    public function getPattckg(): ?string
     {
         return $this->pattckg;
     }
 
-    public function setPattckg(int $pattckg): self
+    public function setPattckg(string $pattckg): self
     {
         $this->pattckg = $pattckg;
 
