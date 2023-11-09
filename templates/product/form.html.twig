@@ -1,19 +1,19 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Formulaire de création d'un comics
+{% block title %}Formulaire de création d'un produit
 {% endblock %}
 
 {% block body %}
 
 	<div class="my-2 col-10 mx-auto">
 
-		{% if app.request.attributes.get("_route") is same as "app_admin_comics_add" %}
+		{% if app.request.attributes.get("_route") is same as "app_product_add" %}
 
 			<h2 class="my-4 text-center mx-auto">Ajouter un nouveau comcis</h2>
 
 		{% else %}
 
-			<h2 class="my-4 text-center mx-auto">Modifier un comics existant</h2>
+			<h2 class="my-4 text-center mx-auto">Modifier un produit existant</h2>
 
 		{% endif %}
 

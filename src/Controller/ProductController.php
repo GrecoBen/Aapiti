@@ -21,10 +21,13 @@ class ProductController extends AbstractController
      */
     public function index(ProductRepository $productRepository, Request $request): Response
     {
-        $allProduct = $productRepository -> findAll($request->get("search")); 
+        $allProduct = $productRepository -> findAll($request->get("search"));
+
+        $categories = ['CHARCUTERIE', 'FROMAGE', 'FRUITS', 'DIPS', 'LEGUMES', 'FRUITS SECS', 'TOPPING', 'POISSON', 'PAIN', 'EPICERIE'];
 
         return $this->render('product/list.html.twig', [
-            'allProduct' => $allProduct
+            'allProduct' => $allProduct,
+            'categories' => $categories,
         ]);
     }   
 

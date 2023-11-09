@@ -20,8 +20,15 @@
 										<span>Produit</span>
 									</th>
 									<th>
-										<span>Catégorie</span>
+									    <select name="category" id="category" class="form-control">
+									    <option value="">Toutes les catégories</option>									
+									    {% for category in categories %}
+									        <option value="{{ category }}">{{ category }}</option>
+									    {% endfor %}
+									</select>
+
 									</th>
+
 									<th>
 										<span>Marque</span>
 									</th>
@@ -49,8 +56,10 @@
 								</tr>
 							</thead>
 							<tbody>
-								{% for product in allProduct %}
-									<tr>
+								{% set categories = app.request.attributes.get('categories') %}
+
+								{% if categories is defined %}
+								    {% for product in categories %}									<tr>
 										<td>
 											<span>{{ product.produit }}</span>
 										</td>
@@ -97,6 +106,9 @@
 										</td>
 									</tr>
 								{% endfor %}
+								{% else %}
+							    <p>Aucune catégorie trouvée</p>
+							{% endif %}
 							</tbody>
 						</table>
 					</div>
