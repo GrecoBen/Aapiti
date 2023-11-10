@@ -119,7 +119,7 @@ public function index(ProductRepository $productRepository, Request $request): R
     }
 
     /**
-     * @Route("procuct/delete/{id}", name="app_product_delete", requirements={"id"="\d+"})
+     * @Route("product/delete/{id}", name="app_product_delete", requirements={"id"="\d+"})
      */
     public function delete(Product $product, ProductRepository $productRepository): Response
     {
