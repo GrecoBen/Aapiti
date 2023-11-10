@@ -1,0 +1,5 @@
+<form class="my-4" method="post" action="{{ path('app_product_delete', {'id': product.id}) }}" 
+        onsubmit="return confirm('Voulez-vous vraiment supprimer ce produit? Cette action est définitive.');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
+    <button class="badge bg-danger fs-6 my-4 mx-2 text-decoration-none">Supprimer le produit</button>
+</form>

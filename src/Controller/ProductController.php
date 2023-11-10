@@ -26,7 +26,9 @@ public function index(ProductRepository $productRepository, Request $request): R
     $categoryFilter = $request->request->get('category');
 
     // Récupérer le terme de recherche à partir de la requête GET
-    $searchTerm = $request->query->get('search');
+    // ...
+    $searchTerm = $request->query->get('search', null); 
+    // ...
 
     // Si la catégorie est définie, filtrer les produits par catégorie
     if ($categoryFilter) {
@@ -52,10 +54,14 @@ public function index(ProductRepository $productRepository, Request $request): R
      * @Route("/product/{id}", name="app_product_show", requirements={"id"="\d+"})
      * Homepage, display the selected comics
      */
-    public function show(Product $product): Response
+    public function show(Product $product, Request $request): Response
     {
+        $searchTerm = $request->query->get('search', null); 
+
         return $this->render('product/show.html.twig', [
             'product' => $product,
+            'searchTerm' => $searchTerm // Passer le terme de recherche au template
+
         ]);
     }
 
@@ -68,6 +74,8 @@ public function index(ProductRepository $productRepository, Request $request): R
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
+        $searchTerm = $request->query->get('search', null); 
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($product);
@@ -79,7 +87,46 @@ public function index(ProductRepository $productRepository, Request $request): R
         }
 
         return $this->renderForm("product/form.html.twig", [
-            "form" => $form
+            "form" => $form,
+            'searchTerm' => $searchTerm // Passer le terme de recherche au template
+
         ]);
+    }
+
+    /**
+     * @Route("/product/edit/{id}", name="app_product_edit", requirements={"id"="\d+"})
+     * Display the form to edit a new comics
+     */
+    public function edit(Product $product, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(ProductType::class, $product);
+        $form->handleRequest($request);
+        $searchTerm = $request->query->get('search', null); 
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $entityManager->flush();
+            $entityManager->persist($product);
+
+            $this->addFlash("success", "Le produit a bien été édité.");
+
+            return $this->redirectToRoute('app_product');
+        }
+
+        return $this->renderForm("product/form.html.twig", [
+            "form" => $form,
+            'searchTerm' => $searchTerm // Passer le terme de recherche au template
+        ]);
+    }
+
+    /**
+     * @Route("procuct/delete/{id}", name="app_product_delete", requirements={"id"="\d+"})
+     */
+    public function delete(Product $product, ProductRepository $productRepository): Response
+    {
+        $productRepository->remove($product, true);
+
+        $this->addFlash("success", "Le produit a bien été supprimé.");
+
+        return $this->redirectToRoute('app_product', [], Response::HTTP_SEE_OTHER);
     }
 }
