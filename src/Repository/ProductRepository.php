@@ -53,6 +53,24 @@ class ProductRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @param string|null $category
+     * @return Product[] Returns an array of Product objects
+     */
+    public function findByCategory(?string $category = null): array
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->orderBy('p.produit', 'ASC');
+
+        if ($category) {
+            $qb->andWhere('p.categorie = :category')
+                ->setParameter('category', $category);
+        }
+
+        return $qb->getQuery()->getResult();
+}
+
+
 //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Form\ProductFilterType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,20 +17,36 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class ProductController extends AbstractController
 {
-    /**
-     * @Route("/product", name="app_product")
-     */
-    public function index(ProductRepository $productRepository, Request $request): Response
-    {
-        $allProduct = $productRepository -> findAll($request->get("search"));
+/**
+ * @Route("/product", name="app_product", methods={"GET", "POST"})
+ */
+public function index(ProductRepository $productRepository, Request $request): Response
+{
+    // Récupérer la catégorie à partir de la requête POST
+    $categoryFilter = $request->request->get('category');
 
-        $categories = ['CHARCUTERIE', 'FROMAGE', 'FRUITS', 'DIPS', 'LEGUMES', 'FRUITS SECS', 'TOPPING', 'POISSON', 'PAIN', 'EPICERIE'];
+    // Récupérer le terme de recherche à partir de la requête GET
+    $searchTerm = $request->query->get('search');
 
-        return $this->render('product/list.html.twig', [
-            'allProduct' => $allProduct,
-            'categories' => $categories,
-        ]);
-    }   
+    // Si la catégorie est définie, filtrer les produits par catégorie
+    if ($categoryFilter) {
+        $allProduct = $productRepository->findBy(['categorie' => $categoryFilter]);
+    } elseif ($searchTerm) {
+        // Si un terme de recherche est défini, effectuer la recherche
+        $allProduct = $productRepository->findAllOrderByTitleSearch($searchTerm);
+    } else {
+        // Sinon, récupérer tous les produits
+        $allProduct = $productRepository->findAll();
+    }
+
+    $categories = ['CHARCUTERIE', 'FROMAGE', 'FRUITS', 'DIPS', 'LEGUMES', 'FRUITS SECS', 'TOPPING', 'POISSON', 'PAIN', 'EPICERIE'];
+
+    return $this->render('product/list.html.twig', [
+        'allProduct' => $allProduct,
+        'categories' => $categories,
+        'searchTerm' => $searchTerm, // Passer le terme de recherche au template
+    ]);
+}
 
      /**
      * @Route("/product/{id}", name="app_product_show", requirements={"id"="\d+"})
