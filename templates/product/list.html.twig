@@ -9,67 +9,77 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="main-box clearfix">
-                    <div class="table-responsive">
-                        <form action="{{ path('app_product') }}" method="post">
-                            <a href="{{ path('app_product_add') }}" class="badge bg-primary fs-6 my-4 mx-2 text-decoration-none">Ajouter un produit</a>
-
-                            <table class="table user-list">
-                                <thead>
-                                    <tr>
-                                        <th><span>Produit</span></th>
-                                        <th>
-                                            <select name="category" id="category" class="form-control">
-                                                <option value="">Toutes les catégories</option>
-                                                {% for category in categories %}
-                                                    <option value="{{ category }}" {% if app.request.query.get('categorie') == category %}selected{% endif %}>
-                                                        {{ category }}
-                                                    </option>
-                                                {% endfor %}
-                                            </select>
-                                            <button type="submit" class="btn btn-primary my-2">Filtrer</button>
-                                        </th>
-                                        <th><span>Marque</span></th>
-                                        <th><span>Fournisseur</span></th>
-                                        <th><span>Conditionnement</span></th>
-                                        <th><span>PA HT Unit</span></th>
-                                        <th><span>PA HT Kg</span></th>
-                                        <th><span>PA TTC Unit</span></th>
-                                        <th><span>PA TTC Kg</span></th>
-                                        <th><span>Grammes</span></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                        {% for product in allProduct %}
-                                            <tr>
-                                                <td><span>{{ product.produit }}</span></td>
-                                                <td><span>{{ product.categorie }}</span></td>
-                                                <td><span>{{ product.marque }}</span></td>
-                                                <td><span>{{ product.fournisseur }}</span></td>
-                                                <td><span>{{ product.conditionnement }}</span></td>
-                                                <td><span>{{ product.pahtunit }}</span></td>
-                                                <td><span>{{ product.pahtkg }}</span></td>
-                                                <td><span>{{ product.pattcunit }}</span></td>
-                                                <td><span>{{ product.pattckg }}</span></td>
-                                                <td><span>{{ product.grammes }}</span></td>
-                                                <td style="width: 15%;">
-                                                    <a href="{{ path('app_product_show', {id: product.id}) }}" class="link-success">
-                                                        <span class="fa-stack">
-                                                            <i class="fa fa-square fa-stack-2x"></i>
-                                                            <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-                                                        </span>
-                                                    </a>
-                                                    <a href="{{path('app_product_edit',{id:product.id})}}" class="link-warning">
-                                                        <span class="fa-stack">
-                                                            <i class="fa fa-square fa-stack-2x"></i>
-                                                            <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                                                        </span>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                </tbody>
-                            </table>
+                    <!-- Partie avant -->
+                    <div class="mb-4">
+                        <a href="{{ path('app_product_add') }}" class="badge bg-primary fs-6 mx-2 text-decoration-none">Ajouter un produit</a>
+                        <form action="{{ path('app_product') }}" method="post" class="d-flex align-items-center">
+                            <select name="category" id="category" class="form-control me-2">
+                                <option value="">Toutes les catégories</option>
+                                {% for category in categories %}
+                                    <option value="{{ category }}" {% if app.request.query.get('categorie') == category %}selected{% endif %}>
+                                        {{ category }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit" class="btn btn-primary">Filtrer</button>
                         </form>
+                    </div>
+
+                    <!-- Tableau avec la première ligne fixe -->
+                    <div class="table-responsive">
+                        <table class="table user-list">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10%;"><span>Produit</span></th>
+                                    <th style="width: 10%;"><span>Catégorie</span></th>
+                                    <th style="width: 10%;"><span>Marque</span></th>
+                                    <th style="width: 10%;"><span>Fournisseur</span></th>
+                                    <th style="width: 10%;"><span>Conditionnement</span></th>
+                                    <th style="width: 10%;"><span>PA HT Unit</span></th>
+                                    <th style="width: 10%;"><span>PA HT Kg</span></th>
+                                    <th style="width: 10%;"><span>PA TTC Unit</span></th>
+                                    <th style="width: 10%;"><span>PA TTC Kg</span></th>
+                                    <th style="width: 10%;"><span>Grammes</span></th>
+                                    <th style="width: 10%;"><span>Actions</span></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                    <!-- Tableau avec le reste du contenu (scrollable) -->
+                    <div class="table-responsive" style="max-height: 80vh; overflow-y: auto;">
+                        <table class="table user-list">
+                            <tbody>
+                                {% for product in allProduct %}
+                                    <tr>
+                                        <td style="width: 10%;"><span>{{ product.produit }}</span></td>
+                                        <td style="width: 10%;"><span>{{ product.categorie }}</span></td>
+                                        <td style="width: 10%;"><span>{{ product.marque }}</span></td>
+                                        <td style="width: 10%;"><span>{{ product.fournisseur }}</span></td>
+                                        <td style="width: 10%;"><span>{{ product.conditionnement }}</span></td>
+                                        <td style="width: 10%;"><span>{{ product.pahtunit }}</span></td>
+                                        <td style="width: 10%;"><span>{{ product.pahtkg }}</span></td>
+                                        <td style="width: 10%;"><span>{{ product.pattcunit }}</span></td>
+                                        <td style="width: 10%;"><span>{{ product.pattckg }}</span></td>
+                                        <td style="width: 10%;"><span>{{ product.grammes }}</span></td>
+                                        <td style="width: 10%;">
+                                            <a href="{{ path('app_product_show', {id: product.id}) }}" class="link-success">
+                                                <span class="fa-stack">
+                                                    <i class="fa fa-square fa-stack-2x"></i>
+                                                    <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
+                                                </span>
+                                            </a>
+                                            <a href="{{ path('app_product_edit', {id: product.id}) }}" class="link-warning">
+                                                <span class="fa-stack">
+                                                    <i class="fa fa-square fa-stack-2x"></i>
+                                                    <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                                                </span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

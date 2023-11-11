@@ -31,9 +31,9 @@
         {% endfor %}
     {% endfor %}
     <!-- Nav -->
-    <nav class="navbar navbar-expand-lg navbar-dark {% block navCss %}bg-success{% endblock %}">
+    <nav class="navbar navbar-expand-lg navbar-dark {% block navCss %}bg-secondary{% endblock %}">
         <div class="container-fluid">
-            <a href="{{('')}}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none header-logo">
+            <a href="{{(path('app_main'))}}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none header-logo">
                 <img src="{{ asset('images/Aapiti.png')}}" height="24" alt="Logo Aapiti">
                 <span class="header-logo__title"></span>
             </a>
@@ -45,7 +45,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     {% block nav %}
                         <li class="nav-item">
-                            <a class="nav-link {% block homeActive %}{% endblock %}" href="{{('') }}">Accueil</a>
+                            <a class="nav-link {% block homeActive %}{% endblock %}" href="{{(path('app_main'))}}">Accueil</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {% block movieActive %}{% endblock %}" href="{{ path('app_product') }}"><i class="bi bi-film"></i> Produits</a>
