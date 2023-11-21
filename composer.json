@@ -4,7 +4,7 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.2.5",
+        "php": "^7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "doctrine/doctrine-bundle": "^2.10",
@@ -24,7 +24,7 @@
         "symfony/mailer": "5.4.*",
         "symfony/mailjet-mailer": "5.4.*",
         "symfony/runtime": "5.4.*",
-        "symfony/security-bundle": "5.4.*",
+        "symfony/security-bundle": "^5.4.",
         "symfony/security-csrf": "5.4.*",
         "symfony/translation": "5.4.*",
         "symfony/twig-bridge": "5.4.*",
